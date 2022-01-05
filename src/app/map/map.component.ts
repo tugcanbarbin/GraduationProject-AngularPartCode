@@ -2,6 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild,Renderer2 } from '@angular/cor
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MapServiceService} from "../map-service.service"
+import {
+  serialize
+} from 'typescript-json-serializer';
+
 declare const L : any;
 @Component({
   selector: 'app-map',
@@ -59,9 +63,20 @@ export class MapComponent implements OnInit {
   {
     this.loginForm.value["adminId"] = 25168
     this.loginForm.value["adminName"] = "tugcanBarbin"
-    //console.log("sa")
-    console.log(this.loginForm.value); 
-    this.mapService.updateHeroStock(this.loginForm.value)
+    var mVersion = {
+      'adminId': this.loginForm.value['adminId'],
+      'adminName': this.loginForm.value['adminName'],
+      'eDate': this.loginForm.value['eDate'],
+      'eventDescription': this.loginForm.value['eventDescription'],
+      'eventName': this.loginForm.value['eventName'],
+      'locations': this.loginForm.value['locations'],
+      'maxGroupSize': this.loginForm.value['maxGroupSize'],
+      'maxPlayerSize':this.loginForm.value['maxPlayerSize'],
+      'photos': this.loginForm.value['photos'],
+      'sDate': this.loginForm.value['sDate']
+    }
+    var json = serialize(mVersion);
+    this.mapService.updateHeroStock(json)
 
   }
   createForm()
