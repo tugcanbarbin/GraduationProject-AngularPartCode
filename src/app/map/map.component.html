@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+  <div class="row" style="margin: 75px;">
+      <div class="col-lg-6" style="width:60%">  
+          <div id="map" ></div>
+      </div>
+      <div class="col-lg-6" style="width:40%" >
+          <div class = "formRow" #formRow>    
+            <div style="background: powderblue;">
+               <form [formGroup]="loginForm!" (ngSubmit)="onSubmit()">
+                 <div class="banner">
+                   <h1>Event Creation Form</h1>
+                 </div>
+                 <div class="row">
+                   <div class="col-md-6">
+                     <div class="item">
+                       <p>Event Name<span class="required">*</span></p>
+                       <div class="name-item">
+                         <input required formControlName="eventName" id="w3review" type="text" name="w3review" rows="4" cols="50">
+                       </div>
+                   </div>
+                   </div>
+                 </div>
+                 <div class="item">
+                   <p>Event Description<span class="required">*</span></p>
+                   <div class="name-item">
+                     <textarea required formControlName="eventDescription" id="w3review" name="w3review" rows="4" cols="50">
+                       </textarea>
+                   </div>
+                </div>
+                <div class="item">
+                  <p>Max Group Size<span class="required">*</span></p>
+                  <div class="name-item">
+                    <input required formControlName="maxGroupSize" id="w3review" type="text" name="w3review" rows="4" cols="50">
+                  </div>
+              </div>
+              <div class="item">
+                <p>Max Player Size <span class="required">*</span></p>
+                <div class="name-item">
+                  <input required formControlName="maxPlayerSize" id="w3review" type="text" name="w3review" rows="4" cols="50">
+                </div>
+            </div>
+                 <div class="position-item" style="flex-flow: column-reverse">
+                   <div class="row">
+                     <div class="col-md-6">
+                       <div class="item">
+                         <p>Estimated End Date<span class="required">*</span></p>
+                         <input formControlName="eDate" type="date" name="enddate" required/>
+                         <i class="fas fa-calendar-alt"></i>
+                       </div>
+                     </div>
+                     <div class="col-md-6">
+                      <div class="item">
+                        <p>Estimated Start Date<span class="required">*</span></p>
+                        <input formControlName="sDate" type="date" name="startdate" required/>
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                    </div>
+                    <div class="inputRow" #inputRow>
+                      <!-- <p>Upload a photo:</p> -->
+                      <div formArrayName = 'photos'>
+                        <div *ngFor = 'let item of Photos.controls; let i  = index' [formGroupName] = 'i' >
+                          <label *ngIf = 'i > 0'>
+                            Upload a Photo for {{i}}:  <input formControlName = 'photo'  type="file" name="file" accept="file/*">
+                          </label>
+                        </div>
+                      </div>
+                        <!-- <input formControlName="photo" type="file" name="file" accept="file/*"> -->
+                      </div>
+                   </div><!-- accepte image/png, image/gif, image/jpeg-->
+                 </div>
+                 <div class="btn-block" style="text-align-last: center;">
+                   <br>
+                   <button type="submit" [disabled]="loginForm.invalid">Submit</button>
+                 </div>
+               </form>
+              </div>
+        </div>
+      </div>
+  </div>
+</body>
+
+
+<!-- <igx-geographic-map width="700px" height="500px" zoomable="true"></igx-geographic-map> -->
+<!-- <p><a href="https://angular-maps.scom/" target="_blank">Official Website</a></p>
+<agm-map 
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  [zoomControl]="false"
+  (mapClick)="mapClicked($event)">
+
+  <agm-marker 
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+      
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+    
+  </agm-marker>
+  
+  <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+      [radius]="5000"
+      [fillColor]="'red'"
+      [circleDraggable]="true"
+      [editable]="true">
+  </agm-circle>
+
+</agm-map> -->
+
+              <!-- <div class="question">
+                <p>What is your current employment status?<span class="required">*</span></p>
+                <div class="question-answer">
+                  <div>
+                    <input type="radio" value="none" id="radio_1" name="status" required/>
+                    <label for="radio_1" class="radio"><span>Employed</span></label>
+                  </div>
+                  <div>
+                    <input type="radio" value="none" id="radio_2" name="status" required/>
+                    <label for="radio_2" class="radio"><span>Self-Employed</span></label>
+                  </div>
+                  <div>
+                    <input type="radio" value="none" id="radio_3" name="status" required/>
+                    <label for="radio_3" class="radio"><span>Unemployed</span></label>
+                  </div>
+                  <div>
+                    <input type="radio" value="none" id="radio_4" name="status" required/>
+                    <label for="radio_4" class="radio"><span>Student</span></label>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="item">
+                <p>Submit your resume by providing your resume URL or attach file:</p>
+                <input type="text" name="providing"/>
+        <input type="file" name="file" accept="file/*">
+              </div> -->
+<!--                            
+              <div class="question">
+                <p>Would you like to list references</p>
+                <div class="question-answer">
+                  <div>
+                    <input type="radio" value="none" id="radio_5" name="references" />
+                    <label for="radio_5" class="radio"><span>Yes</span></label>
+                  </div>
+                  <div>
+                    <input type="radio" value="none" id="radio_6" name="references" />
+                    <label for="radio_6" class="radio"><span>No</span></label>
+                  </div>
+                </div>
+              </div> -->
+                              <!-- <div class="item">
+                  <p>Email<span class="required">*</span></p>
+                  <input type="text" name="name" required/>
+                </div> -->
+                <!-- <div class="item">
+                  <p>Phone<span class="required">*</span></p>
+                  <input type="text" name="name" required/>
+                </div> -->

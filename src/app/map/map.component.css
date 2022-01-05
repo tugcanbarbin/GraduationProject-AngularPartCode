@@ -1,0 +1,327 @@
+#map { height: 850px; 
+width: 900px;}
+html {
+    margin: 0px;
+    height: 100vh;
+    width: 100%;
+    background-color: cornsilk;
+}
+body{
+    margin: 0px;
+    height: 100vh;
+    width: 100%;
+}
+html, body {
+    min-height: 100%;
+    }
+    body, div, form, input, select, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 22px;
+    }
+    h1 {
+    position: absolute;
+    margin: 0;
+    font-size: 38px;
+    color: #fff;
+    z-index: 2;
+    }
+    p.top-info {
+    margin: 10px 0;
+    }
+    .testbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    padding: 20px;
+    }
+    form {
+    width: 100%;
+    padding: 20px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0 25px 0 #1c87c9; 
+    }
+   .banner {
+    position: relative;
+    height: 100px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
+    .banner::after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.6); 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    }
+    input, select, textarea {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    }
+    input {
+    width: calc(100% - 10px);
+    padding: 5px;
+    }
+
+    select {
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+    }
+    .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+    color: #1c87c9;
+    }
+    .item input:hover, .item select:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 0 6px 0 #1c87c9;
+    color: #1c87c9;
+    }
+    .item {
+    position: relative;
+    margin: 10px 0;
+    }
+
+    .item i {
+    right: 2%;
+    top: 30px;
+    z-index: 1;
+    }
+
+    input[type=radio]  {
+    display: none;
+    }
+    label.radio {
+    position: relative;
+    display: inline-block;
+    margin: 5px 20px 10px 0;
+    cursor: pointer;
+    }
+    .question span {
+    margin-left: 30px;
+    }
+    span.required {
+    margin-left: 0;
+    color: red;
+    }
+    label.radio:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    }
+    input[type=radio]:checked + label:before, label.radio:hover:before {
+    border: 2px solid #1c87c9;
+    }
+    label.radio:after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 8px;
+    height: 4px;
+    border: 3px solid #1c87c9;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg);
+    opacity: 0;
+    }
+    input[type=radio]:checked + label:after {
+    opacity: 1;
+    }
+    .btn-block {
+    margin-top: 10px;
+    text-align: center;
+    }
+    button {
+    width: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px; 
+    background: #1c87c9;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    }
+    button:hover {
+    background: #1e6fa0;
+    }
+    @media (min-width: 568px) {
+    .name-item, .contact-item, .position-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    }
+    .name-item input {
+    width: calc(50% - 20px);
+    }
+    .contact-item .item, .position-item .item {
+    width: calc(50% - 8px);
+    }
+    .contact-item input, .position-item input {
+    width: calc(100% - 12px);
+    }
+    .position-item select {
+    width: 100%;
+    }
+    }
+/* @import "bourbon";
+
+* {
+	@include box-sizing(border-box);
+}
+
+
+
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: bottom;
+}
+
+.recipe-card {
+	background: #fff;
+	margin: 4em auto;
+	width: 90%;
+	max-width: 496px;
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+}
+.recipe-card .icon-users,.icon-users\:regular {
+    background-position: 0 -84px;
+    width: 18px;
+    height: 18px;
+}
+.recipe-card .icon-play,.icon-play\:regular {
+    background-position: 0 -58px;
+    width: 21px;
+    height: 26px;
+}
+
+.recipe-card .icon-clock,.icon-clock\:regular {
+    background-position: 0 -19px;
+    width: 20px;
+    height: 20px;
+}
+.recipe-card .icon-level,.icon-level\:regular {
+    background-position: 0 -39px;
+    width: 16px;
+    height: 19px;
+}
+
+.recipe-card.icon-calories,.icon-calories\:regular {
+    background-position: 0 0;
+    width: 16px;
+    height: 19px;
+}
+
+.recipe-card.icon {
+    display: inline;
+    display: inline-block;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/recipe-card-icons.svg);
+    background-repeat: no-repeat;
+}
+.recipe-card aside {
+    position: relative;
+}
+.recipe-card aside img {
+    @include border-top-radius(5px);
+}
+.recipe-card aside .button {
+    background: #57abf2;
+    display: inline-block;
+    position: absolute;
+    top: 80%;
+    right: 3%;
+    width: em(65);
+    height: em(65);
+    border-radius: em(65);
+    line-height: em(65);
+    text-align: center;
+}
+.recipe-card aside .button .icon {
+    vertical-align: middle;
+}
+.recipe-card article {
+    padding: 1.25em 1.5em;
+
+   
+
+    
+    
+
+    
+
+    
+
+
+}
+.recipe-card article h2, h3 {
+    margin: 0;
+    font-weight: 300;
+}
+.recipe-card article .ingredients {
+    margin: 2em 0 0.5em;
+}
+
+.recipe-card article h2 {
+    font-size: em(28);
+    color: #222222;
+}
+.recipe-card article h3 {
+    font-size: em(15);
+    color: #838689;
+}
+.recipe-card article p {
+    margin: 1.25em 0;
+    font-size: em(13);
+    font-weight: 400;
+    color: #222222;
+
+
+}
+.recipe-card article p span {
+    font-weight: 700;
+    color: #000000;
+}
+.recipe-card article ul {
+    list-style: none;
+    margin: 0.5em 0 0;
+    padding: 0;
+    
+}
+.recipe-card article ul li {
+    display: inline-block;
+    margin-left: 1em;
+    line-height: 1em;
+
+
+
+}
+.recipe-card article ul li:first-child {
+    margin-left: 0;
+}
+.recipe-card article ul li .icon {
+    vertical-align: bottom;
+}
+.recipe-card article ul li span:nth-of-type(2) {
+    margin-left: 0.5em;
+    font-size: 0.8em;
+    font-weight: 300;
+    vertical-align: middle;
+    color: #838689;
+} */
