@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
     .signInWithPopup(provider)
     .then(res => {
       console.log(res);
+      this.router.navigateByUrl('/map')
     })
     .catch(err => {
     });

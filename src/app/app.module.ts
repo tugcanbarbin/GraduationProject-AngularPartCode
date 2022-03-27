@@ -42,11 +42,6 @@ const firebaseConfig = {
         IgxGeographicMapModule,
         AngularFireModule.initializeApp(firebaseConfig),
         AngularFirestoreModule,
-        //provideFirebaseApp(() => initializeApp(environment.firebase)),
-        //provideAnalytics(() => getAnalytics()),
-        //provideAuth(() => getAuth()),
-        //provideDatabase(() => getDatabase()),
-        //provideFirestore(() => getFirestore())
     ],
     providers: [
     ScreenTrackingService,UserTrackingService

@@ -5,7 +5,10 @@ import {MapServiceService} from "../map-service.service"
 import {
   serialize
 } from 'typescript-json-serializer';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
+import { AngularFireModule } from "@angular/fire/compat";
+import firebase from 'firebase/compat/app';
 declare const L : any;
 @Component({
   selector: 'app-map',
@@ -15,7 +18,7 @@ declare const L : any;
 export class MapComponent implements OnInit {
   @ViewChild('inputRow') formRow!: ElementRef;
   loginForm!: FormGroup;
-  constructor(private mapService:MapServiceService,private renderer:Renderer2, private router: Router, private activadeRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule,private mapService:MapServiceService,private renderer:Renderer2, private router: Router, private activadeRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
   map:any;
   mapPopup:any
   divName:any;
@@ -76,7 +79,7 @@ export class MapComponent implements OnInit {
       'sDate': this.loginForm.value['sDate']
     }
     var json = serialize(mVersion);
-    this.mapService.updateHeroStock(json)
+    this.mapService.CreateEvent(json)
 
   }
   createForm()

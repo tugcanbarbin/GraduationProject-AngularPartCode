@@ -16,7 +16,7 @@ export class MapServiceService {
     // headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization' :'Token '+this.mytoken})
   };
 
-  updateHeroStock(values: any){
+  CreateEvent(values: any){
     var resp;
     this.http.request('POST', this.heroesUrl, {body:values,headers:this.httpOptions.headers}).subscribe(data => {
       resp= data;
