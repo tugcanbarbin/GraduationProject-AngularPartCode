@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
     zoomOffset: -1,
     accessToken: 'your.mapbox.access.token'
     }).addTo(this.map);
-    this.mapPopup = L.popup();
+    // this.mapPopup = L.popup();
     this.map.on('click', this.onMapClick,this);
     this.createForm()
   }
@@ -41,26 +41,18 @@ export class MapComponent implements OnInit {
   // }
   onMapClick(e:any)
   {
-     this.mapPopup.setLatLng(e.latlng)
-    .setContent("You Clicked the map at"+ e.latlng.toString())
-    .openOn(this.map);
+    //  this.mapPopup.setLatLng(e.latlng)
+    // .setContent("You Clicked the map at"+ e.latlng.toString())
+    // .openOn(this.map);
+
+    var marker = new L.Marker(e.latlng);
+    marker.bindPopup("Event Position : " + e.latlng.toString()).openPopup();
+    marker.addTo(this.map);
 
     this.Photos.push(this.formBuilder.group({photo:''}))
     this.Locations.push(this.formBuilder.group({location:e.latlng.toString()}))
 
 
-    // //this.createForm()
-    // //let newFieldName = 'newFile' + e.latlng.toString();
-    // this.loginForm.addControl('newFile',new FormControl(''))
-    
-    // const p: HTMLParagraphElement = this.renderer.createElement('p');
-    // p.innerHTML = 
-    //        ' <div class="item">'+
-    //          ' <p>Upload a photo for :' + e.latlng+'</p>'+
-    //          //' <input formControlName="'+ newFieldName  +'" type="file" name="file" accept="file/*">'+
-    //          ' <input formControlName="newFile" type="file" name="file" accept="file/*">'+
-    //        ' </div>';
-    // this.renderer.appendChild(this.formRow.nativeElement, p)
   }
   onSubmit()
   {
@@ -122,12 +114,16 @@ export class MapComponent implements OnInit {
     );
 
   }
-}
 
-  //   const p: HTMLParagraphElement = this.renderer.createElement('p');
-  //   p.innerHTML = '<div style="background: powderblue;">'+
-  //          ' <div class="item">'+
-  //            ' <p>Upload a photo:</p>'+
-  //            ' <input formControlName="photo" type="file" name="file" accept="file/*">'+
-  //          ' </div>'+
-  //   this.renderer.appendChild(this.formRow.nativeElement, p)
+  Logout()
+  {
+    return this.angularFireAuth.signOut().then(() => {
+      this.router.navigateByUrl('/login')
+      //window.alert('Logged out!');
+
+    });
+
+  }
+
+
+}
