@@ -52,7 +52,6 @@ export class MapComponent implements OnInit {
     this.Photos.push(this.formBuilder.group({photo:''}))
     this.Locations.push(this.formBuilder.group({location:e.latlng.toString()}))
 
-
   }
   onSubmit()
   {

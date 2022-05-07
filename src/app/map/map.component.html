@@ -74,7 +74,7 @@
                       <div formArrayName = 'photos'>
                         <div *ngFor = 'let item of Photos.controls; let i  = index' [formGroupName] = 'i' >
                           <label *ngIf = 'i > 0'>
-                            Upload a Photo for {{i}}:  <input formControlName = 'photo'  type="file" name="file" accept="file/*">
+                            Upload a Photo for {{i}}:  <input formControlName = 'photo'  type="file" name="file" accept="file/,video/*">
                           </label>
                         </div>
                       </div>

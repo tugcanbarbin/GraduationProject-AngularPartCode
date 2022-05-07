@@ -8,7 +8,7 @@ import { map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MapServiceService {
-  private heroesUrl = 'http://localhost:8000/yukle/';
+  private heroesUrl = 'https://ens491slm.herokuapp.com/yukle/';
   negeldi!:String;
   constructor(private http: HttpClient, private router: Router) { }
   httpOptions = {
@@ -27,13 +27,13 @@ export class MapServiceService {
 
 
   EventFormPost(values: any){
-    console.log("girdik")
-    console.log(values['eventName'])
+    //console.log("girdik")
+    //console.log(values['eventName'])
     return this.http.post<any>(this.heroesUrl, values,this.httpOptions).pipe(
       map((user : any)=>{
-        console.log("buraya girdik mi")
+        //console.log("buraya girdik mi")
         if(user){
-          console.log("attm galiba")
+          //console.log("attm galiba")
         }
       })
     )
