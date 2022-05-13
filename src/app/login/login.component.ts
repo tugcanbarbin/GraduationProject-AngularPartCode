@@ -11,6 +11,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { AngularFireModule } from "@angular/fire/compat";
 import firebase from 'firebase/compat/app';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   //userData: Observable<firebase.default.User>;
   
   loginForm!: FormGroup;
-  constructor(private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule, private router: Router, private activadeRoute: ActivatedRoute, ) {}
+  constructor(private http: HttpClient, private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule, private router: Router, private activadeRoute: ActivatedRoute) {}
+  
   ngOnInit(): void {
     this.createLoginForm();
   }
@@ -45,14 +47,36 @@ export class LoginComponent implements OnInit {
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
+  private heroesUrl = 'http://localhost:8000/login/';//'https://ens491slm.herokuapp.com/login/';
   AuthLogin(provider:any) {
+    var httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+      // headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization' :'Token '+this.mytoken})
+    };
     return this.angularFireAuth
     .signInWithPopup(provider)
     .then(res => {
-      console.log(res);
-      this.router.navigateByUrl('/map')
+      this.http.post(this.heroesUrl, res, {headers: httpOptions.headers}).toPromise()
+      .then(
+        res2 => {
+          console.log(JSON.stringify(res2));
+          try {
+            var res3 = JSON.parse(JSON.stringify(res2));
+            console.log(res3['Res']);
+            if (res3['Res'] != 'Admin is not exist'){
+              this.router.navigateByUrl('/map')
+            }
+            else {
+              this.router.navigateByUrl('/signup')
+            }
+          } catch (e) {
+            console.log(e)
+          }
+        }
+      )
     })
     .catch(err => {
+      
     });
     }
   SignIn(email:any, password:any) {
