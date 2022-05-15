@@ -1,3 +1,4 @@
+<p>register works!</p>
 <body>
     <div class="wrapper fadeInDown" style="padding-top: 200px;">
         <div id="formContent">
@@ -13,7 +14,7 @@
     
         <!-- Login Form -->
         <form [formGroup]="loginForm!" (ngSubmit)='onSubmit()'>
-            <input type="text" formControlName='username'  id="login" class="fadeIn second"  placeholder="login">
+            <input type="text" formControlName='credential'  id="login" class="fadeIn second"  placeholder="login">
             <br>
             <input type="password" formControlName='password' id="password" class="fadeIn third"  placeholder="password">
             <br><br><br>

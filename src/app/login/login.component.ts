@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
-  private heroesUrl = 'http://localhost:8000/login/';//'https://ens491slm.herokuapp.com/login/';
+  private heroesUrl = 'https://ens491slm.herokuapp.com/login/';//'https://ens491slm.herokuapp.com/login/';
   AuthLogin(provider:any) {
     var httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
           }
         }
       )
+      //this.router.navigateByUrl('/map')
     })
     .catch(err => {
       

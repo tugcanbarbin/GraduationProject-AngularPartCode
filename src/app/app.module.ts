@@ -16,6 +16,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { RegisterComponent } from './register/register.component';
 const firebaseConfig = {
     apiKey: "AIzaSyDjdXcrAoDRmuFscrdlcYJIEgVK_jNZHDs",
     authDomain: "ens491-6ae91.firebaseapp.com",
@@ -30,7 +31,8 @@ const firebaseConfig = {
     declarations: [
         AppComponent,
         LoginComponent,
-        MapComponent
+        MapComponent,
+        RegisterComponent
     ],
     imports: [
         HttpClientModule,

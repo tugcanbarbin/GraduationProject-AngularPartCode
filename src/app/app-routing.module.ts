@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
 import { AngularFireAuthGuard, canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo} from '@angular/fire/compat/auth-guard';
+import { RegisterComponent } from './register/register.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
@@ -26,6 +27,11 @@ const routes: Routes = [
     data:{ authGuardPipe: redirectUnauthorizedToLogin }
 
   },
+  {
+    path:'register',
+    component: RegisterComponent,
+    
+  }
 ];
 
 @NgModule({
