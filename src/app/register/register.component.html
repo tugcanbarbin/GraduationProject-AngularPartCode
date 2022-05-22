@@ -1,9 +1,8 @@
-<p>register works!</p>
 <body>
     <div class="wrapper fadeInDown" style="padding-top: 200px;">
         <div id="formContent">
         <!-- Tabs Titles -->
-        <h2 class="active"> Welcome</h2>
+        <h2 class="active"> Sign-Up</h2>
         <br><br><br><br>
 
     
@@ -13,14 +12,16 @@
         </div> -->
     
         <!-- Login Form -->
-        <form [formGroup]="loginForm!" (ngSubmit)='onSubmit()'>
-            <input type="text" formControlName='credential'  id="login" class="fadeIn second"  placeholder="login">
+        <form [formGroup]="registerForm!" (ngSubmit)='onSubmit()'>
+            <input type="text" formControlName='credential'  id="credential" class="fadeIn second"  placeholder="Credential">
             <br>
             <input type="password" formControlName='password' id="password" class="fadeIn third"  placeholder="password">
+            <br>
+            <input type="password" formControlName='password2' id="password2" class="fadeIn fourth"  placeholder="password again">
             <br><br><br>
             <input type="submit" class="fadeIn fourth"  value="Submit">
         </form>
-        <form (ngSubmit)='onSubmit2()'>
+        <!-- <form (ngSubmit)='onSubmit()'>
             <div>
                 <button class="hollow button primary" >
                   <img width="20px" style="margin-bottom:-1px; margin-right:5px" alt="Google login" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
@@ -28,7 +29,7 @@
                 </button>
               </div>
             <br><br>
-        </form>
+        </form> -->
         <div id="formFooter">
             <a class="underlineHover" >Ens492 Admin Panel</a>
         </div>

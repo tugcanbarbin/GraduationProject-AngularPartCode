@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 import { AngularFireModule } from "@angular/fire/compat";
 import firebase from 'firebase/compat/app';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RegisterServiceService} from "../register-service.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,13 +21,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   //userData: Observable<firebase.default.User>;
-  
+  response ="";
+
+
   loginForm!: FormGroup;
-  constructor(private http: HttpClient, private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule, private router: Router, private activadeRoute: ActivatedRoute) {}
+  constructor(private http: HttpClient,
+     private angularFireAuth: AngularFireAuth, 
+     private angularFireModule: AngularFireModule,
+      private router: Router,
+       private activadeRoute: ActivatedRoute,
+       private registerService : RegisterServiceService,
+       ) {}
   
   ngOnInit(): void {
+    this.registerService.updateCurrentMessage("");
+
+    this.registerService.currentResponseMessage.subscribe(msg => this.response = msg);
+
     this.createLoginForm();
   }
+
   createLoginForm() {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -34,20 +49,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    //this.GoogleAuth()
     this.SignIn(this.loginForm.value["username"],this.loginForm.value["password"]);
   }
   onSubmit2() {
     this.GoogleAuth()
-    //this.SignIn(this.loginForm.value["username"],this.loginForm.value["password"]);
   }
-  // GoogleAuth() {
-  //   return this.SignIn(new this.GoogleAuthProvider());
-  // }
+
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
-  private heroesUrl = 'https://ens491slm.herokuapp.com/login/';//'https://ens491slm.herokuapp.com/login/';
+  private popupLogin = 'https://ens491slm.herokuapp.com/login/';//'https://ens491slm.herokuapp.com/login/';
+  private passLogin = 'https://ens491slm.herokuapp.com/apasslogin/';//'https://ens491slm.herokuapp.com/login/';
+
   AuthLogin(provider:any) {
     var httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -56,36 +69,65 @@ export class LoginComponent implements OnInit {
     return this.angularFireAuth
     .signInWithPopup(provider)
     .then(res => {
-      this.http.post(this.heroesUrl, res, {headers: httpOptions.headers}).toPromise()
-      .then(
+      this.http.post(this.popupLogin, res, {headers: httpOptions.headers}).subscribe(
         res2 => {
-          console.log(JSON.stringify(res2));
+          var res3 = JSON.parse(JSON.stringify(res2));
+          if (res3['status'] == 200){
+            this.router.navigateByUrl('/map')
+          }
+        },
+        err => {
           try {
-            var res3 = JSON.parse(JSON.stringify(res2));
-            console.log(res3['Res']);
-            if (res3['Res'] != 'Admin is not exist'){
+            //console.log(res3['Res']);
+            var res3 = JSON.parse(JSON.stringify(err));
+            console.log(res3['error']['Res'] + "  error message");
+            if (res3['error']['Res'] != 'Admin is not exist'){
               this.router.navigateByUrl('/map')
             }
             else {
-              this.router.navigateByUrl('/signup')
+              this.registerService.updateCurrentMessage(JSON.stringify(res));
+              this.angularFireAuth.signOut();
+              this.router.navigateByUrl('/register')
             }
           } catch (e) {
-            console.log(e)
+            console.log(e);
           }
         }
       )
-      //this.router.navigateByUrl('/map')
     })
-    .catch(err => {
-      
-    });
     }
+
   SignIn(email:any, password:any) {
-    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.router.navigateByUrl('/map')
-      }).catch((error) => {
-        window.alert(error.message)
-      })
+    var httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+      // headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization' :'Token '+this.mytoken})
+    };
+    var res;
+    res = {'email': email, 'password': password};
+    return this.http.post(this.passLogin, res, {headers: httpOptions.headers}).subscribe(
+      res2 => {
+        console.log(JSON.stringify(res2) + " asdasdasd");
+        var res3 = JSON.parse(JSON.stringify(res2));
+        console.log(res3['Res']);
+        if (res3['status'] == 200){
+          this.router.navigateByUrl('/map')
+        }
+      },
+      err => {
+        try {
+          //console.log(res3['Res']);
+          var res3 = JSON.parse(JSON.stringify(err));
+          console.log(res3['error']['Res'] + "  error message");
+          if (res3['error']['Res'] != 'Admin is not exist'){
+            this.router.navigateByUrl('/map')
+          }
+          else {
+            this.router.navigateByUrl('/register')
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    )
   }
 }
