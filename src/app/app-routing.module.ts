@@ -4,6 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
 import { AngularFireAuthGuard, canActivate, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo} from '@angular/fire/compat/auth-guard';
 import { RegisterComponent } from './register/register.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
@@ -31,6 +33,18 @@ const routes: Routes = [
     path:'register',
     component: RegisterComponent,
     
+  },
+  {
+    path: 'eventList',
+    component: EventListComponent,
+    canActivate: [AngularFireAuthGuard],
+    data:{ authGuardPipe:redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'editEvent/:id',
+    component: EditEventComponent,
+    canActivate: [AngularFireAuthGuard],
+    data:{ authGuardPipe:redirectUnauthorizedToLogin}
   }
 ];
 

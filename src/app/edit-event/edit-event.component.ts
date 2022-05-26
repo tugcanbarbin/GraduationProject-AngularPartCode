@@ -10,19 +10,20 @@ import { Observable } from 'rxjs';
 import { AngularFireModule } from "@angular/fire/compat";
 import firebase from 'firebase/compat/app';
 declare const L : any;
+
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: 'app-edit-event',
+  templateUrl: './edit-event.component.html',
+  styleUrls: ['./edit-event.component.css']
 })
-export class MapComponent implements OnInit {
+export class EditEventComponent implements OnInit {
   @ViewChild('inputRow') formRow!: ElementRef;
   loginForm!: FormGroup;
-  markerList: any[] = [];
   constructor(private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule,private mapService:MapServiceService,private renderer:Renderer2, private router: Router, private activadeRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
   map:any;
   mapPopup:any
   divName:any;
+  markerList: any[] = [];
   ngOnInit(): void {
     this.map = L.map('map').setView([40.891429, 29.379494], 17);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidHVnY2FuYmFyYmluIiwiYSI6ImNrd3oyMjRlbDAxODgybm81cGNod29ibjUifQ.yxBa7sIXhz0I1mDgIw8SEA', {
@@ -47,12 +48,26 @@ export class MapComponent implements OnInit {
     // .openOn(this.map);
 
     var marker = new L.Marker(e.latlng);
-    marker.bindPopup("Event Position " +(this.loginForm.get('photos') as FormArray).length  + " : " + e.latlng.toString()).openPopup()
+    marker.bindPopup("Event Position " +(this.loginForm.get('photos') as FormArray).length  + " : " + e.latlng.toString()).openPopup();
     marker.addTo(this.map);
 
-    this.Photos.push(this.formBuilder.group({photo:''}));
-    this.Locations.push(this.formBuilder.group({location:e.latlng.toString()}));
+    this.Photos.push(this.formBuilder.group({photo:''}))
+    this.Locations.push(this.formBuilder.group({location:e.latlng.toString()}))
     this.markerList.push(marker);
+  }
+  
+  onDelete(e:any)
+  {
+    //  this.mapPopup.setLatLng(e.latlng)
+    // .setContent("You Clicked the map at"+ e.latlng.toString())
+    // .openOn(this.map);
+
+    var marker = new L.Marker(e.latlng);
+    marker.bindPopup("Event Position " +(this.loginForm.get('photos') as FormArray).length  + " : " + e.latlng.toString()).openPopup();
+    marker.addTo(this.map);
+
+    this.Photos.push(this.formBuilder.group({photo:''}))
+    this.Locations.push(this.formBuilder.group({location:e.latlng.toString()}))
 
   }
   onSubmit()
@@ -104,7 +119,6 @@ export class MapComponent implements OnInit {
         photo: [''],
       }
     );
-
   }
   addLocationFormGroup()
   {
@@ -113,7 +127,6 @@ export class MapComponent implements OnInit {
         location: [''],
       }
     );
-
   }
 
   Logout()
@@ -125,7 +138,6 @@ export class MapComponent implements OnInit {
     });
 
   }
-
   Delete(index:number)
   {
     var marker = this.markerList[index-1];
@@ -137,6 +149,4 @@ export class MapComponent implements OnInit {
 
 
   }
-
-
 }
