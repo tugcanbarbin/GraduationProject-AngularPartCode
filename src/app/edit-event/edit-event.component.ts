@@ -94,12 +94,12 @@ export class EditEventComponent implements OnInit {
   {
     this.loginForm = new FormGroup({
      // adminId: new FormControl(''),
-      eventName: new FormControl('', Validators.required),
-      eventDescription: new FormControl('', Validators.required),
-      maxGroupSize:new FormControl('', Validators.required),
-      maxPlayerSize:new FormControl('', Validators.required),
-      sDate: new FormControl('', Validators.required),
-      eDate: new FormControl('', Validators.required),
+      eventName: new FormControl('example event 1', Validators.required),
+      eventDescription: new FormControl('an event', Validators.required),
+      maxGroupSize:new FormControl('10', Validators.required),
+      maxPlayerSize:new FormControl('5', Validators.required),
+      sDate: new FormControl('05.03.2022', Validators.required),
+      eDate: new FormControl('10.03.2022', Validators.required),
       photos: this.formBuilder.array([this.addPhotoFormGroup()]),
       locations: this.formBuilder.array([this.addLocationFormGroup()])
     });

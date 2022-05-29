@@ -24,7 +24,7 @@ export class EventListComponent implements OnInit {
   constructor(private angularFireAuth: AngularFireAuth, private angularFireModule: AngularFireModule,private mapService:MapServiceService,private renderer:Renderer2, private router: Router, private activadeRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.newField = {eventName: "denemeEvent1", maxGroupSize:"10", maxPlayerSize:"5"}
+    this.newField = {eventName: "example event 1", maxGroupSize:"10", maxPlayerSize:"5", startDate: "05.03.2022", dueDate: " 10.03.2022"}
     this.fieldArray.push(this.newField);
     this.addFieldValue();
   }
@@ -40,7 +40,7 @@ export class EventListComponent implements OnInit {
   }
 
   addFieldValue() {
-    this.newField = {eventName: "denemeEvent2", maxGroupSize:"12", maxPlayerSize:"3"}
+    this.newField = {eventName: "example event 2", maxGroupSize:"12", maxPlayerSize:"3",startDate: "15.03.2022", dueDate: " 23.03.2022"}
     this.fieldArray.push(this.newField);
 }
 

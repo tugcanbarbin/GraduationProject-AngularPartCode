@@ -12,4 +12,6 @@ export class EventShort {
     eventName!: string;
     maxGroupSize!: string;
     maxPlayerSize!: string;
+    startDate!: string;
+    dueDate!: string;
 }

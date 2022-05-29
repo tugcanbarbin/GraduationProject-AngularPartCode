@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
   private popupLogin = 'https://ens491slm.herokuapp.com/login/';//'https://ens491slm.herokuapp.com/login/';
-  private passLogin = 'https://ens491slm.herokuapp.com/apasslogin/';//'https://ens491slm.herokuapp.com/login/';
+  private passLogin = 'https://ens491slm.herokuapp.com/apasslogin';//'https://ens491slm.herokuapp.com/login/';
 
   AuthLogin(provider:any) {
     var httpOptions = {
@@ -71,8 +71,9 @@ export class LoginComponent implements OnInit {
     .then(res => {
       this.http.post(this.popupLogin, res, {headers: httpOptions.headers}).subscribe(
         res2 => {
+          console.log(res2);
           var res3 = JSON.parse(JSON.stringify(res2));
-          if (res3['status'] == 200){
+          if (res3["Res"] == "Admin Logged In"){
             this.router.navigateByUrl('/map')
           }
         },
@@ -103,13 +104,15 @@ export class LoginComponent implements OnInit {
       // headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization' :'Token '+this.mytoken})
     };
     var res;
-    res = {'email': email, 'password': password};
+    res = {'username': email, 'password': password};
     return this.http.post(this.passLogin, res, {headers: httpOptions.headers}).subscribe(
       res2 => {
         console.log(JSON.stringify(res2) + " asdasdasd");
         var res3 = JSON.parse(JSON.stringify(res2));
-        console.log(res3['Res']);
-        if (res3['status'] == 200){
+        console.log(res3);
+        console.log(res3["res"]);
+        if (res3["res"] == "user logged in with password"){
+          console.log("girdik")
           this.router.navigateByUrl('/map')
         }
       },
